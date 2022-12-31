@@ -75,10 +75,6 @@ public class Compte implements Serializable {
         return nbCompte;
     }
 
-    public static void setNbCompte(int nbCompte) {
-        Compte.nbCompte = nbCompte;
-    }
-
     public int getCode() {
         return this.code;
     }

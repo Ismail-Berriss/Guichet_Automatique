@@ -80,6 +80,10 @@ public class Run {
                             Visual depot = new Depot(this);
                             depot.show();
                             break;
+                        case 3:
+                            Visual virement = new Virement(this);
+                            virement.show();
+                            break;
                         case 4:
                             Visual solde = new Solde(this);
                             solde.show();

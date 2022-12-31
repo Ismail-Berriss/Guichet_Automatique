@@ -49,6 +49,7 @@ public class Client implements Serializable {
         this.mesComptes[nCompte].retirer(montant);
     }
 
+
     // Getters and Setters
     public Compte getCompte(int n) {
         return this.mesComptes[n];
