@@ -9,46 +9,67 @@ import java.io.ObjectInputStream;
 import java.util.Scanner;
 
 public class Run {
-    public Run() {
+
+    // Attributs
+    Visual login = new Login();
+
+    // Methods
+    public boolean verify(String nom, String pin) throws IOException, ClassNotFoundException {
+
+        FileInputStream f2 = new FileInputStream("comptes");
+        ObjectInputStream o = new ObjectInputStream(f2);
+
+        Client[] clients = (Client[])o.readObject();
+
+        o.close(); f2.close();
+
+        for (int i = 0; i < clients.length; i++) {
+            if(nom.equals(clients[i].getNom()) && pin.equals(clients[i].getPin()))
+                return true;
+        }
+
+        return false;
     }
 
     public void run() throws IOException, ClassNotFoundException {
-        FileInputStream f2 = new FileInputStream("comptes");
-        ObjectInputStream o = new ObjectInputStream(f2);
-        Client[] clients = (Client[])o.readObject();
 
-        for(int i = 0; i < clients.length; ++i) {
-            System.out.println(clients[i].toString());
-        }
-
-        o.close();
-        f2.close();
-        boolean continueLogin = true;
+        // Affichage
+        boolean continueLogin = true, continueMain = true;
 
         while(continueLogin) {
-            Visual login = new Login();
-            login.show();
-        }
 
-        boolean continueMain = true;
-        Scanner clavier = new Scanner(System.in);
+            continueMain = true;
 
-        while(continueMain) {
-            int choix;
-            do {
-                Visual mainMenu = new MainMenu();
-                mainMenu.show();
-                choix = clavier.nextInt();
-            } while(choix < 1 || choix > 6);
+            login.show(); // Affichage du menu
 
-            switch (choix) {
-                case 1:
-                default:
-                    break;
-                case 6:
-                    continueMain = false;
+            if (!login.valide) {
+                System.out.println("----- Identifiant ou code PIN est errone. Veuillez reesayez -----\n");
+            }
+            else {
+                Scanner clavier = new Scanner(System.in);
+
+                while(continueMain) {
+
+                    int choix;
+
+                    do {
+                        Visual mainMenu = new MainMenu();
+                        mainMenu.show();
+                        choix = clavier.nextInt();
+                    } while(choix < 1 || choix > 6);
+
+                    switch (choix) {
+                        case 1:
+                        default:
+                            break;
+                        case 6:
+                            continueMain = false;
+                    }
+                }
             }
         }
+
+
 
     }
 }

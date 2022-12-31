@@ -1,14 +1,18 @@
 package guichetautomatique.visual;
 
+import java.io.IOException;
+
 public abstract class Visual {
+    public Boolean valide;
+
     public Visual() {
     }
 
-    public abstract void show();
+    public abstract void show()  throws IOException, ClassNotFoundException;
 
     public abstract void header();
 
-    public abstract void content();
+    public abstract void content() throws IOException, ClassNotFoundException;
 
     public String formatRow(String str) {
         return str.replace('|', '│');

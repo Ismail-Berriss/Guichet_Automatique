@@ -5,9 +5,12 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Client implements Serializable {
+
+    // Attributs
     public final int NB_MAX_COMPTE = 4;
-    private String pin = this.generatePIN();
-    private int code;
+
+    private final String pin;
+    private final int code;
     private final String nom;
     private final String prenom;
     private String adresse;
@@ -15,8 +18,10 @@ public class Client implements Serializable {
     private Compte[] mesComptes;
     private Employe conseiller;
     private int nbCompte = 0;
+
     private static int nbClient = 0;
 
+    // Constructor
     public Client(String nom, String prenom, String adresse, Agence agence) {
         this.code = ++nbClient;
         this.nom = nom;
@@ -24,16 +29,22 @@ public class Client implements Serializable {
         this.adresse = adresse;
         this.monAgence = agence;
         this.mesComptes = new Compte[4];
+        this.pin = generatePIN();
     }
 
+    // Methods
     private String generatePIN() {
         Random random = new Random();
+
         int code = random.nextInt(10000);
+
         String formattedCode = String.format("%04d", code);
+
         return formattedCode;
     }
 
     public void addCompte(Compte c) {
+
         if (this.nbCompte < 4) {
             this.mesComptes[this.nbCompte++] = c;
         } else {
@@ -50,12 +61,17 @@ public class Client implements Serializable {
         this.mesComptes[nCompte].retirer(montant);
     }
 
+    // Getters and Setters
     public Compte getCompte(int n) {
         return this.mesComptes[n];
     }
 
     public int getCode() {
         return this.code;
+    }
+
+    public String getPin() {
+        return pin;
     }
 
     public String getNom() {
@@ -71,6 +87,7 @@ public class Client implements Serializable {
     }
 
     public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     public Agence getMonAgence() {
