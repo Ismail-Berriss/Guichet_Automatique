@@ -1,6 +1,8 @@
 package guichetautomatique.banque;
 
-public class Employe {
+import java.io.Serializable;
+
+public class Employe implements Serializable {
     private String nom;
     private String prenom;
     private String dateEmbauche;
@@ -39,5 +41,14 @@ public class Employe {
 
     public static int getNbEmploye() {
         return nbEmploye;
+    }
+
+    @Override
+    public String toString() {
+        return "Employe{" +
+                "nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", dateEmbauche='" + dateEmbauche + '\'' +
+                '}';
     }
 }

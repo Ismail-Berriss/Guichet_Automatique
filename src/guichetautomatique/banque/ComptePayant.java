@@ -30,8 +30,12 @@ public class ComptePayant extends Compte implements Serializable {
         return "ComptePayant";
     }
 
+    @Override
     public String toString() {
-        double var10000 = super.getSolde();
-        return "ComptePayant{solde=" + var10000 + ", code=" + super.getCode() + "}";
+        return "ComptePayant{" +
+                "TAUX_OPERATION=" + TAUX_OPERATION +
+                ", code=" + code +
+                ", solde=" + solde +
+                '}';
     }
 }

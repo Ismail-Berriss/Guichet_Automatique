@@ -34,8 +34,12 @@ public class CompteEpargne extends Compte implements Serializable {
         this.tauxInteret = tauxInteret;
     }
 
+    @Override
     public String toString() {
-        double var10000 = super.getSolde();
-        return "CompteEpargne{solde=" + var10000 + ", code=" + super.getCode() + "}";
+        return "CompteEpargne{" +
+                "tauxInteret=" + tauxInteret +
+                ", code=" + code +
+                ", solde=" + solde +
+                '}';
     }
 }

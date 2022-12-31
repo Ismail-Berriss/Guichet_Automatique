@@ -1,5 +1,7 @@
 package guichetautomatique.banque;
 
+import java.util.Arrays;
+
 public class Banque {
     public static final int NB_MAX_AGENCES = 50;
     private String nom;
@@ -54,5 +56,15 @@ public class Banque {
 
     public Agence getAgence(int n) {
         return this.agences[n];
+    }
+
+    @Override
+    public String toString() {
+        return "Banque{" +
+                "nom='" + nom + '\'' +
+                ", capitalGlobal=" + capitalGlobal +
+                ", siegeSocial='" + siegeSocial + '\'' +
+                ", agences=" + Arrays.toString(agences) +
+                '}';
     }
 }

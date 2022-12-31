@@ -28,6 +28,7 @@ public class Agence implements Serializable {
     public void addClient(Client c) {
         if (this.nbClients < 30) {
             this.lesClients[this.nbClients] = c;
+
             Random random = new Random();
             int i = random.nextInt(this.employes.length);
             this.lesClients[this.nbClients++].setConseiller(this.employes[i]);
@@ -78,8 +79,17 @@ public class Agence implements Serializable {
         return this.nbClients;
     }
 
+    @Override
     public String toString() {
-        int var10000 = this.numAgence;
-        return "Agence{numAgence=" + var10000 + ", adresse='" + this.adresse + "', lesClients=" + Arrays.toString(this.lesClients) + "}";
+        return "Agence{" +
+                "numAgence=" + numAgence +
+                ", adresse='" + adresse + '\'' +
+                ", directeur=" + directeur +
+                ", employes=" + Arrays.toString(employes) +
+                ", lesClients=" + Arrays.toString(lesClients) +
+                ", nbComptes=" + nbComptes +
+                ", nbClients=" + nbClients +
+                ", nbEmployes=" + nbEmployes +
+                '}';
     }
 }

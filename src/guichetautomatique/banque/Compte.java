@@ -63,7 +63,11 @@ public class Compte implements Serializable {
         return this.proprietaire;
     }
 
+    @Override
     public String toString() {
-        return "Compte{solde=" + this.solde + ", code=" + this.code + "}";
+        return "Compte{" +
+                "code=" + code +
+                ", solde=" + solde +
+                '}';
     }
 }

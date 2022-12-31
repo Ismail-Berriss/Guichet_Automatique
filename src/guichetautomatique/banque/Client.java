@@ -97,8 +97,17 @@ public class Client implements Serializable {
         this.conseiller = conseiller;
     }
 
+    @Override
     public String toString() {
-        int var10000 = this.code;
-        return "Client{code=" + var10000 + ", PIN=" + this.pin + ", nom='" + this.nom + "', prenom='" + this.prenom + "', adresse='" + this.adresse + "', mesComptes=" + Arrays.toString(this.mesComptes) + "}";
+        return "Client{" +
+                "pin='" + pin + '\'' +
+                ", code=" + code +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", mesComptes=" + Arrays.toString(mesComptes) +
+                ", conseiller=" + conseiller +
+                ", nbCompte=" + nbCompte +
+                '}';
     }
 }
