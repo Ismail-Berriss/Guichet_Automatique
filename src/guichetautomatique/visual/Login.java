@@ -9,6 +9,12 @@ import java.util.Scanner;
 
 public class Login extends Visual {
 
+    // Constructors
+    public Login() {}
+
+    public Login(Run run) {
+        this.run = run;
+    }
 
     // Methods
     public void show()  throws IOException, ClassNotFoundException {
@@ -42,8 +48,6 @@ public class Login extends Visual {
         content = this.formatDiv("g-----------------------------------------------------i\n");
 
         System.out.println(content);
-
-        Run run = new Run();
 
         this.valide = run.verify(nom, pin);
 

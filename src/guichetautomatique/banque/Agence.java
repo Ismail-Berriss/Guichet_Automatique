@@ -5,17 +5,21 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Agence implements Serializable {
+
     public static final int NB_MAX_COMPTES = 50;
     public static final int NB_MAX_CLIENTS = 30;
     public static final int NB_MAX_EMPLOYES = 6;
+
     private int numAgence;
     private String adresse;
     private Employe directeur;
     private Employe[] employes;
     private Client[] lesClients;
+
     private int nbComptes = 0;
     private int nbClients = 0;
     private int nbEmployes = 0;
+
     private static int nbAgences = 0;
 
     public Agence(String adresse) {

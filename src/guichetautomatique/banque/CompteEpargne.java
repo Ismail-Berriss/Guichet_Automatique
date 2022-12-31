@@ -1,6 +1,7 @@
 package guichetautomatique.banque;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class CompteEpargne extends Compte implements Serializable {
     public final String typeCompteP = "CompteEpargne";
@@ -38,8 +39,11 @@ public class CompteEpargne extends Compte implements Serializable {
     public String toString() {
         return "CompteEpargne{" +
                 "tauxInteret=" + tauxInteret +
+                ", pin='" + pin + '\'' +
                 ", code=" + code +
                 ", solde=" + solde +
+                ", operations=" + Arrays.toString(operations) +
+                ", nbOperations=" + nbOperations +
                 '}';
     }
 }

@@ -1,13 +1,20 @@
 package guichetautomatique.visual;
 
+import guichetautomatique.Run;
+
 import java.io.IOException;
 
 public abstract class Visual {
-    public Boolean valide;
 
+    // Attributs
+    public Boolean valide;
+    protected Run run;
+
+    // Constructors
     public Visual() {
     }
 
+    // Methods
     public abstract void show()  throws IOException, ClassNotFoundException;
 
     public abstract void header();

@@ -9,7 +9,6 @@ public class Client implements Serializable {
     // Attributs
     public final int NB_MAX_COMPTE = 4;
 
-    private final String pin;
     private final int code;
     private final String nom;
     private final String prenom;
@@ -29,20 +28,9 @@ public class Client implements Serializable {
         this.adresse = adresse;
         this.monAgence = agence;
         this.mesComptes = new Compte[4];
-        this.pin = generatePIN();
     }
 
     // Methods
-    private String generatePIN() {
-        Random random = new Random();
-
-        int code = random.nextInt(10000);
-
-        String formattedCode = String.format("%04d", code);
-
-        return formattedCode;
-    }
-
     public void addCompte(Compte c) {
 
         if (this.nbCompte < 4) {
@@ -68,10 +56,6 @@ public class Client implements Serializable {
 
     public int getCode() {
         return this.code;
-    }
-
-    public String getPin() {
-        return pin;
     }
 
     public String getNom() {
@@ -117,8 +101,7 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-                "pin='" + pin + '\'' +
-                ", code=" + code +
+                "code=" + code +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", adresse='" + adresse + '\'' +

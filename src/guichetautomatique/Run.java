@@ -1,6 +1,7 @@
 package guichetautomatique;
 
 import guichetautomatique.banque.Client;
+import guichetautomatique.banque.Compte;
 import guichetautomatique.visual.*;
 
 import java.io.FileInputStream;
@@ -11,7 +12,11 @@ import java.util.Scanner;
 public class Run {
 
     // Attributs
-    Visual login = new Login();
+    private Visual login = new Login(this);
+    public Client[] clients;
+    public int currentClient;
+    public int currentCompte;
+
 
     // Methods
     public boolean verify(String nom, String pin) throws IOException, ClassNotFoundException {
@@ -19,13 +24,18 @@ public class Run {
         FileInputStream f2 = new FileInputStream("comptes");
         ObjectInputStream o = new ObjectInputStream(f2);
 
-        Client[] clients = (Client[])o.readObject();
+        clients = (Client[])o.readObject();
 
         o.close(); f2.close();
 
         for (int i = 0; i < clients.length; i++) {
-            if(nom.equals(clients[i].getNom()) && pin.equals(clients[i].getPin()))
-                return true;
+            for(int j = 0; j < clients[i].getNbCompte(); j++) {
+                if(nom.equals(clients[i].getNom()) && pin.equals(clients[i].getCompte(j).getPin()))  {
+                    currentClient = i;
+                    currentCompte = j;
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -46,6 +56,8 @@ public class Run {
                 System.out.println("----- Identifiant ou code PIN est errone. Veuillez reesayez -----\n");
             }
             else {
+                continueLogin = false;
+
                 Scanner clavier = new Scanner(System.in);
 
                 while(continueMain) {
@@ -53,17 +65,33 @@ public class Run {
                     int choix;
 
                     do {
-                        Visual mainMenu = new MainMenu();
+                        Visual mainMenu = new MainMenu(this);
                         mainMenu.show();
                         choix = clavier.nextInt();
+
                     } while(choix < 1 || choix > 6);
 
                     switch (choix) {
                         case 1:
-                        default:
+                            Visual retrait = new Retrait(this);
+                            retrait.show();
+                            break;
+                        case 2:
+                            Visual depot = new Depot(this);
+                            depot.show();
+                            break;
+                        case 4:
+                            Visual solde = new Solde(this);
+                            solde.show();
+                            break;
+                        case 5:
+                            Visual releve = new Releve(this);
+                            releve.show();
                             break;
                         case 6:
                             continueMain = false;
+                        default:
+                            break;
                     }
                 }
             }

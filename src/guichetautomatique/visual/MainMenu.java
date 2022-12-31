@@ -1,7 +1,13 @@
 package guichetautomatique.visual;
 
+import guichetautomatique.Run;
+
 public class MainMenu extends Visual {
     public MainMenu() {
+    }
+
+    public MainMenu(Run run) {
+        this.run = run;
     }
 
     public void show() {
@@ -12,8 +18,8 @@ public class MainMenu extends Visual {
     public void header() {
         String header = "";
         header = header + this.formatDiv("a------------------------------------c\n");
-        header = header + this.formatRow("|         BIENVENUE M. ....          |\n");
-        header = header + this.formatDiv("d------------------------------------f\n");
+        header = header + this.formatRow("|         BIENVENUE  " + run.clients[run.currentClient].getNom());
+        header = header + this.formatDiv("\nd------------------------------------f\n");
         System.out.print(header);
     }
 
