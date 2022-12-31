@@ -3,13 +3,9 @@ package guichetautomatique.banque;
 import java.io.Serializable;
 
 public class CompteEpargne extends Compte implements Serializable {
-
-    // Attributs
     public final String typeCompteP = "CompteEpargne";
+    private double tauxInteret = 6.0;
 
-    private double tauxInteret = 6;
-
-    // Constructors
     public CompteEpargne(double solde) {
         super(solde);
     }
@@ -22,29 +18,24 @@ public class CompteEpargne extends Compte implements Serializable {
         super(solde, client, agence);
     }
 
-    // Methods
     public void calculInteret() {
-        super.deposer(getSolde() * tauxInteret / 100);
+        super.deposer(this.getSolde() * this.tauxInteret / 100.0);
     }
 
-    // Getters and Setters
     public String getTypeCompteP() {
-        return typeCompteP;
+        return "CompteEpargne";
     }
 
     public double getTauxInteret() {
-        return tauxInteret;
+        return this.tauxInteret;
     }
 
     public void setTauxInteret(double tauxInteret) {
         this.tauxInteret = tauxInteret;
     }
 
-    @Override
     public String toString() {
-        return "CompteEpargne{" +
-                "solde=" + super.getSolde() +
-                ", code=" + super.getCode() +
-                '}';
+        double var10000 = super.getSolde();
+        return "CompteEpargne{solde=" + var10000 + ", code=" + super.getCode() + "}";
     }
 }

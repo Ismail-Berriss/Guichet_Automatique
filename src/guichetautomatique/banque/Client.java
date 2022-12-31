@@ -2,75 +2,79 @@ package guichetautomatique.banque;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Client implements Serializable {
-
-    // Attributes
     public final int NB_MAX_COMPTE = 4;
-
+    private String pin = this.generatePIN();
     private int code;
     private final String nom;
     private final String prenom;
     private String adresse;
     private Agence monAgence;
-    Compte[] mesComptes;
+    private Compte[] mesComptes;
+    private Employe conseiller;
     private int nbCompte = 0;
-
     private static int nbClient = 0;
 
-    // Constructor
-
     public Client(String nom, String prenom, String adresse, Agence agence) {
-        code = ++ nbClient;
+        this.code = ++nbClient;
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
         this.monAgence = agence;
-        mesComptes = new Compte[NB_MAX_COMPTE];
+        this.mesComptes = new Compte[4];
     }
 
-    // Methods
+    private String generatePIN() {
+        Random random = new Random();
+        int code = random.nextInt(10000);
+        String formattedCode = String.format("%04d", code);
+        return formattedCode;
+    }
+
     public void addCompte(Compte c) {
-        if(nbCompte < NB_MAX_COMPTE)
-            mesComptes[nbCompte++] = c;
-        else System.out.println("Vous avez atteindre le nombre max du comptes que vous pouvez avoir");
+        if (this.nbCompte < 4) {
+            this.mesComptes[this.nbCompte++] = c;
+        } else {
+            System.out.println("Vous avez atteindre le nombre max du comptes que vous pouvez avoir");
+        }
+
     }
 
     public void deposer(int nCompte, double montant) {
-        mesComptes[nCompte].deposer(montant);
+        this.mesComptes[nCompte].deposer(montant);
     }
 
     public void retirer(int nCompte, double montant) {
-        mesComptes[nCompte].retirer(montant);
+        this.mesComptes[nCompte].retirer(montant);
     }
 
-    // Getters and Setters
     public Compte getCompte(int n) {
-        return mesComptes[n];
+        return this.mesComptes[n];
     }
 
     public int getCode() {
-        return code;
+        return this.code;
     }
 
     public String getNom() {
-        return nom;
+        return this.nom;
     }
 
     public String getPrenom() {
-        return prenom;
+        return this.prenom;
     }
 
     public String getAdresse() {
-        return adresse;
+        return this.adresse;
     }
 
     public void setAdresse(String adresse) {
-        adresse = adresse;
     }
 
     public Agence getMonAgence() {
-        return monAgence;
+        return this.monAgence;
     }
 
     public void setMonAgence(Agence monAgence) {
@@ -78,22 +82,23 @@ public class Client implements Serializable {
     }
 
     public int getNbCompte() {
-        return nbCompte;
+        return this.nbCompte;
     }
 
     public static int getNbClient() {
         return nbClient;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "code=" + code +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", mesComptes=" + Arrays.toString(mesComptes) +
-                '}';
+    public Employe getConseiller() {
+        return this.conseiller;
     }
 
+    public void setConseiller(Employe conseiller) {
+        this.conseiller = conseiller;
+    }
+
+    public String toString() {
+        int var10000 = this.code;
+        return "Client{code=" + var10000 + ", PIN=" + this.pin + ", nom='" + this.nom + "', prenom='" + this.prenom + "', adresse='" + this.adresse + "', mesComptes=" + Arrays.toString(this.mesComptes) + "}";
+    }
 }

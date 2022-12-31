@@ -2,47 +2,56 @@ package guichetautomatique.banque;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Agence implements Serializable {
-
-    // Attributs
-    public final static int NB_MAX_COMPTES = 50;
-    public final static int NB_MAX_CLIENTS = 20;
-
-
+    public static final int NB_MAX_COMPTES = 50;
+    public static final int NB_MAX_CLIENTS = 30;
+    public static final int NB_MAX_EMPLOYES = 6;
     private int numAgence;
     private String adresse;
+    private Employe directeur;
+    private Employe[] employes;
     private Client[] lesClients;
-    private Compte[] lesComptes;
-
+    private int nbComptes = 0;
+    private int nbClients = 0;
+    private int nbEmployes = 0;
     private static int nbAgences = 0;
-    private static int nbComptes = 0;
-    private static int nbClients = 0;
 
-    // Constructors
-    public Agence (String adresse) {
-        numAgence = ++nbAgences;
+    public Agence(String adresse) {
+        this.numAgence = ++nbAgences;
         this.adresse = adresse;
-        lesClients = new Client[NB_MAX_CLIENTS];
-        lesComptes = new Compte[NB_MAX_COMPTES];
-    }
-
-    // Methods
-    public void addCompte(Compte c) {
-        if(nbComptes < NB_MAX_COMPTES)
-            lesComptes[nbComptes++] = c;
-        else System.out.println("Vous avez atteindre le nombre max du comptes que vous pouvez avoir");
+        this.lesClients = new Client[30];
+        this.employes = new Employe[6];
     }
 
     public void addClient(Client c) {
-        if(nbClients < NB_MAX_CLIENTS)
-            lesClients[nbClients++] = c;
-        else System.out.println("Vous avez atteindre le nombre max du clients que vous pouvez avoir");
+        if (this.nbClients < 30) {
+            this.lesClients[this.nbClients] = c;
+            Random random = new Random();
+            int i = random.nextInt(this.employes.length);
+            this.lesClients[this.nbClients++].setConseiller(this.employes[i]);
+        } else {
+            System.out.println("Vous avez atteindre le nombre max du clients que vous pouvez avoir");
+        }
+
     }
 
-    // Getters and Setters
+    public void addDirecteur(Employe d) {
+        this.directeur = d;
+    }
+
+    public void addEmploye(Employe e) {
+        if (this.nbEmployes < 6) {
+            this.employes[this.nbEmployes++] = e;
+        } else {
+            System.out.println("Vous avez atteindre le nombre max des employes que vous pouvez avoir");
+        }
+
+    }
+
     public int getNumAgence() {
-        return numAgence;
+        return this.numAgence;
     }
 
     public void setNumAgence(int numAgence) {
@@ -50,41 +59,27 @@ public class Agence implements Serializable {
     }
 
     public String getAdresse() {
-        return adresse;
+        return this.adresse;
     }
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
 
-    public Compte getCompte(int n) {
-        return lesComptes[n];
-    }
-
     public Client getClient(int n) {
-        return lesClients[n];
+        return this.lesClients[n];
     }
 
     public static int getNbAgences() {
         return nbAgences;
     }
 
-    public static int getNbComptes() {
-        return nbComptes;
+    public int getNbClients() {
+        return this.nbClients;
     }
 
-    public static int getNbClients() {
-        return nbClients;
-    }
-
-    @Override
     public String toString() {
-        return "Agence{" +
-                "numAgence=" + numAgence +
-                ", adresse='" + adresse + '\'' +
-                ", lesClients=" + Arrays.toString(lesClients) +
-                ", lesComptes=" + Arrays.toString(lesComptes) +
-                '}';
+        int var10000 = this.numAgence;
+        return "Agence{numAgence=" + var10000 + ", adresse='" + this.adresse + "', lesClients=" + Arrays.toString(this.lesClients) + "}";
     }
-
 }
