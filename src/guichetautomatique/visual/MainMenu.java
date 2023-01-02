@@ -18,7 +18,7 @@ public class MainMenu extends Visual {
     public void header() {
         String header = "";
         header = header + this.formatDiv("a------------------------------------c\n");
-        header = header + this.formatRow("|         BIENVENUE  " + run.clients[run.currentClient].getNom());
+        header = header + this.formatRow("|         BIENVENUE  " + run.clients.get(run.currentClient).getNom());
         header = header + this.formatDiv("\nd------------------------------------f\n");
         System.out.print(header);
     }

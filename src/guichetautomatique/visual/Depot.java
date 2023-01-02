@@ -1,11 +1,11 @@
 package guichetautomatique.visual;
 
 import guichetautomatique.Run;
+import util.EndOfFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Depot extends Visual {
@@ -39,18 +39,18 @@ public class Depot extends Visual {
         System.out.print(content);
         double montant = clavier.nextDouble();
 
-        run.clients[run.currentClient].getCompte(run.currentCompte).deposer(montant);
+        run.clients.get(run.currentClient).getCompte(run.currentCompte).deposer(montant);
 
-        LocalDate currentDate = LocalDate.now();
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("comptes.txt"))) {
 
-        run.clients[run.currentClient].getCompte(run.currentCompte).addOperation(montant, "depot", currentDate);
+            for(int i = 0; i < run.clients.size(); i++) {
+                oos.writeObject(run.clients.get(i));
+            }
+            oos.writeObject(new EndOfFile());
 
-        FileOutputStream f1 = new FileOutputStream("comptes");
-        ObjectOutputStream o = new ObjectOutputStream(f1);
-
-        o.writeObject(run.clients);
-
-        o.close(); f1.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
         content = this.formatDiv("g-----------------------------------------------------i\n");
         System.out.println(content);

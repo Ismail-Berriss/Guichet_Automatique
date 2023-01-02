@@ -1,4 +1,8 @@
-package guichetautomatique.banque;
+package shared;
+
+import shared.Agence;
+import shared.Client;
+import shared.Compte;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -42,7 +46,7 @@ public class CompteEpargne extends Compte implements Serializable {
                 ", pin='" + pin + '\'' +
                 ", code=" + code +
                 ", solde=" + solde +
-                ", operations=" + Arrays.toString(operations) +
+                ", operations=" + operations +
                 ", nbOperations=" + nbOperations +
                 '}';
     }

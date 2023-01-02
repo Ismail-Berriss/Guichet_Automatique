@@ -2,10 +2,12 @@ package guichetautomatique.visual;
 
 
 import guichetautomatique.Run;
+import util.EndOfFile;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
-import java.time.LocalDate;
 
 public class Retrait extends Visual {
 
@@ -39,18 +41,18 @@ public class Retrait extends Visual {
         System.out.print(content);
         double montant = clavier.nextDouble();
 
-        run.clients[run.currentClient].getCompte(run.currentCompte).retirer(montant);
+        run.clients.get(run.currentClient).getCompte(run.currentCompte).retirer(montant);
 
-        LocalDate currentDate = LocalDate.now();
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("comptes.txt"))) {
 
-        run.clients[run.currentClient].getCompte(run.currentCompte).addOperation(montant, "retrait", currentDate);
+            for(int i = 0; i < run.clients.size(); i++) {
+                oos.writeObject(run.clients.get(i));
+            }
+            oos.writeObject(new EndOfFile());
 
-        FileOutputStream f1 = new FileOutputStream("comptes");
-        ObjectOutputStream o = new ObjectOutputStream(f1);
-
-        o.writeObject(run.clients);
-
-        o.close(); f1.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
         content = this.formatDiv("g-----------------------------------------------------i\n");
         System.out.println(content);

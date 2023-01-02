@@ -2,6 +2,8 @@ package guichetautomatique.visual;
 
 import guichetautomatique.Run;
 
+import java.sql.SQLOutput;
+
 
 public class Releve extends Visual {
 
@@ -26,10 +28,10 @@ public class Releve extends Visual {
     }
 
     public void content() {
-
-        for(int i = 0; i < run.clients[run.currentClient].getCompte(run.currentCompte).getOperations().length; ++i) {
-            if (run.clients[run.currentClient].getCompte(run.currentCompte).getOperation(i) != null) {
-                String str1 = String.format("| %-55s |",run.clients[run.currentClient].getCompte(run.currentCompte).getOperation(i));
+        
+        for(int i = 0; i < run.clients.get(run.currentClient).getCompte(run.currentCompte).getOperations().size(); ++i) {
+            if (run.clients.get(run.currentClient).getCompte(run.currentCompte).getOperation(i) != null) {
+                String str1 = String.format("| %-55s |",run.clients.get(run.currentClient).getCompte(run.currentCompte).getOperation(i));
                 System.out.println(this.formatRow(str1));
             }
         }

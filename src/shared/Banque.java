@@ -1,4 +1,6 @@
-package guichetautomatique.banque;
+package shared;
+
+import shared.Agence;
 
 import java.util.Arrays;
 

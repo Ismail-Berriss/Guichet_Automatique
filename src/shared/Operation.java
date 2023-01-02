@@ -1,19 +1,16 @@
-package guichetautomatique.banque;
-
-import com.sun.source.doctree.SerialDataTree;
+package shared;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Operation implements Serializable {
 
     // Attributs
     private double montant;
     private String type;
-    private LocalDate date;
+    private final String date;
 
     // Constructors
-    public Operation(double montant, String type, LocalDate date) {
+    public Operation(double montant, String type, String date) {
         this.montant = montant;
         this.type = type;
         this.date = date;
@@ -36,7 +33,7 @@ public class Operation implements Serializable {
         this.type = type;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 

@@ -1,11 +1,9 @@
 package guichetautomatique.visual;
 
 import guichetautomatique.Run;
-import guichetautomatique.banque.MyObjectOutputStream;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Solde extends Visual {
@@ -34,11 +32,15 @@ public class Solde extends Visual {
 
     public void content() throws IOException, ClassNotFoundException {
 
-        String content = this.formatRow("|            Votre solde est :   " + run.clients[run.currentClient].getCompte(run.currentCompte).getSolde());
+        String content = this.formatRow("|            Votre solde est :   " + run.clients.get(run.currentClient).getCompte(run.currentCompte).getSolde());
         System.out.print(content);
 
         content = this.formatDiv("\ng-----------------------------------------------------i\n");
         System.out.println(content);
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("--- Press enter to return...");
+        input.nextLine();
     }
 
 

@@ -1,6 +1,8 @@
-package guichetautomatique.banque;
+package shared;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Employe implements Serializable {
     private String nom;
@@ -8,10 +10,16 @@ public class Employe implements Serializable {
     private String dateEmbauche;
     private static int nbEmploye = 0;
 
-    public Employe(String nom, String prenom, String dateEmbauche) {
+    public Employe(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
-        this.dateEmbauche = dateEmbauche;
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formattedTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        String time = currentDateTime.format(formattedTime);
+
+        this.dateEmbauche = time;
         ++nbEmploye;
     }
 

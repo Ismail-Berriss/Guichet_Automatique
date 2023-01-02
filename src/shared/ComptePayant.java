@@ -1,4 +1,8 @@
-package guichetautomatique.banque;
+package shared;
+
+import shared.Agence;
+import shared.Client;
+import shared.Compte;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -24,11 +28,11 @@ public class ComptePayant extends Compte implements Serializable {
 
     // Methods
     public void retirer(double mt) {
-        super.retirer(mt + 5.0);
+        super.retirer(mt + TAUX_OPERATION);
     }
 
     public void deposer(double mt) {
-        super.deposer(mt + 5.0);
+        super.deposer(mt - TAUX_OPERATION);
     }
 
     // Getters and Setters
@@ -43,7 +47,7 @@ public class ComptePayant extends Compte implements Serializable {
                 ", pin='" + pin + '\'' +
                 ", code=" + code +
                 ", solde=" + solde +
-                ", operations=" + Arrays.toString(operations) +
+                ", operations=" + operations +
                 ", nbOperations=" + nbOperations +
                 '}';
     }

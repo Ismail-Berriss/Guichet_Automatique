@@ -1,8 +1,7 @@
-package guichetautomatique.banque;
+package shared;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.ArrayList;
 
 public class Client implements Serializable {
 
@@ -14,7 +13,7 @@ public class Client implements Serializable {
     private final String prenom;
     private String adresse;
     private Agence monAgence;
-    private Compte[] mesComptes;
+    private ArrayList<Compte> mesComptes;
     private Employe conseiller;
     private int nbCompte = 0;
 
@@ -27,14 +26,14 @@ public class Client implements Serializable {
         this.prenom = prenom;
         this.adresse = adresse;
         this.monAgence = agence;
-        this.mesComptes = new Compte[4];
+        this.mesComptes = new ArrayList<Compte>();
     }
 
     // Methods
     public void addCompte(Compte c) {
 
-        if (this.nbCompte < 4) {
-            this.mesComptes[this.nbCompte++] = c;
+        if (this.nbCompte < NB_MAX_COMPTE) {
+            this.mesComptes.add(c);
         } else {
             System.out.println("Vous avez atteindre le nombre max du comptes que vous pouvez avoir");
         }
@@ -42,17 +41,17 @@ public class Client implements Serializable {
     }
 
     public void deposer(int nCompte, double montant) {
-        this.mesComptes[nCompte].deposer(montant);
+        this.mesComptes.get(nCompte).deposer(montant);
     }
 
     public void retirer(int nCompte, double montant) {
-        this.mesComptes[nCompte].retirer(montant);
+        this.mesComptes.get(nCompte).retirer(montant);
     }
 
 
     // Getters and Setters
     public Compte getCompte(int n) {
-        return this.mesComptes[n];
+        return this.mesComptes.get(n);
     }
 
     public int getCode() {
@@ -106,7 +105,7 @@ public class Client implements Serializable {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", adresse='" + adresse + '\'' +
-                ", mesComptes=" + Arrays.toString(mesComptes) +
+                ", mesComptes=" + mesComptes +
                 ", conseiller=" + conseiller +
                 ", nbCompte=" + nbCompte +
                 '}';

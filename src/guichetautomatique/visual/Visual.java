@@ -26,6 +26,15 @@ public abstract class Visual {
     }
 
     public String formatDiv(String str) {
-        return str.replace('a', '┌').replace('b', '┬').replace('c', '┐').replace('d', '├').replace('e', '┼').replace('f', '┤').replace('g', '└').replace('h', '┴').replace('i', '┘').replace('-', '─');
+        return str.replace('a', '┌')
+                .replace('b', '┬')
+                .replace('c', '┐')
+                .replace('d', '├')
+                .replace('e', '┼')
+                .replace('f', '┤')
+                .replace('g', '└')
+                .replace('h', '┴')
+                .replace('i', '┘')
+                .replace('-', '─');
     }
 }

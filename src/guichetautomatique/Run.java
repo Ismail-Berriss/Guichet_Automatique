@@ -1,37 +1,48 @@
 package guichetautomatique;
 
-import guichetautomatique.banque.Client;
-import guichetautomatique.banque.Compte;
+import shared.Client;
 import guichetautomatique.visual.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Run {
 
     // Attributs
-    private Visual login = new Login(this);
-    public Client[] clients;
+    private Visual login;
+    public ArrayList<Client> clients;
     public int currentClient;
     public int currentCompte;
 
+    // Constructors
+    public Run() {
+        login = new Login(this);
+        clients = new ArrayList<Client>();
+    }
 
     // Methods
     public boolean verify(String nom, String pin) throws IOException, ClassNotFoundException {
 
-        FileInputStream f2 = new FileInputStream("comptes");
-        ObjectInputStream o = new ObjectInputStream(f2);
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("comptes.txt"))) {
+            Object client;
+            int i = 0;
 
-        clients = (Client[])o.readObject();
+            while (!((client = ois.readObject()) instanceof util.EndOfFile)) {
+                clients.add((Client)client);
+                i++;
+            }
 
-        o.close(); f2.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        for (int i = 0; i < clients.length; i++) {
-            for(int j = 0; j < clients[i].getNbCompte(); j++) {
-                if(nom.equals(clients[i].getNom()) && pin.equals(clients[i].getCompte(j).getPin()))  {
-                    currentClient = i;
+        for (int k = 0; k < clients.size(); k++) {
+            for(int j = 0; j < clients.get(k).getNbCompte(); j++) {
+                if(nom.equals(clients.get(k).getNom()) && pin.equals(clients.get(k).getCompte(j).getPin()))  {
+                    currentClient = k;
                     currentCompte = j;
                     return true;
                 }

@@ -1,15 +1,14 @@
-package guichetautomatique.banque;
+package shared;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Random;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Compte implements Serializable {
 
     // Attributs
-    private static final int NB_MAX_OPERATIONS = 100;
-
     private static int nbCompte = 0;
 
     protected String pin;
@@ -17,7 +16,7 @@ public class Compte implements Serializable {
     protected double solde;
     protected Agence lAgence;
     protected Client proprietaire;
-    protected Operation[] operations;
+    protected ArrayList<Operation> operations;
     protected int nbOperations = 0;
 
     // Constructors
@@ -28,7 +27,7 @@ public class Compte implements Serializable {
         this.solde = solde;
         this.code = ++nbCompte;
         this.pin = generatePIN();
-        operations = new Operation[NB_MAX_OPERATIONS];
+        operations = new ArrayList<Operation>();
     }
 
     public Compte(Client client, Agence agence) {
@@ -41,26 +40,42 @@ public class Compte implements Serializable {
         this.proprietaire = client;
         this.lAgence = agence;
         this.pin = generatePIN();
-        operations = new Operation[NB_MAX_OPERATIONS];
+        operations = new ArrayList<Operation>();
     }
 
     // Methods
     public void retirer(double montant) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formattedTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        String time = currentDateTime.format(formattedTime);
+
         if (montant < this.solde) {
             this.solde -= montant;
+            addOperation(montant, "retrait", time);
+
         }
     }
 
     public void deposer(double montant) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formattedTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        String time = currentDateTime.format(formattedTime);
+
+
         this.solde += montant;
+        addOperation(montant, "depot", time);
     }
 
-    public void addOperation(double montant, String type, LocalDate date) {
-        operations[nbOperations++] = new Operation(montant, type, date);
+    public void addOperation(double montant, String type, String time) {
+        operations.add(new Operation(montant, type, time));
+        nbOperations++;
     }
 
     private String generatePIN() {
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
+        random.setSeed(12345);
 
         int code = random.nextInt(10000);
 
@@ -96,10 +111,10 @@ public class Compte implements Serializable {
     }
 
     public Operation getOperation(int i) {
-        return operations[i];
+        return operations.get(i);
     }
 
-    public Operation[] getOperations() {
+    public ArrayList<Operation> getOperations() {
         return operations;
     }
 
@@ -113,7 +128,7 @@ public class Compte implements Serializable {
                 "pin='" + pin + '\'' +
                 ", code=" + code +
                 ", solde=" + solde +
-                ", operations=" + Arrays.toString(operations) +
+                ", operations=" + operations +
                 ", nbOperations=" + nbOperations +
                 '}';
     }
